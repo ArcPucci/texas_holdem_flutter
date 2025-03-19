@@ -1,0 +1,430 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:texas_holdem/presentation/widgets/widgets.dart';
+
+class AncientGreeceScreen extends StatelessWidget {
+  const AncientGreeceScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/png/ancient_greece_bg.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+            child: SafeArea(
+              bottom: false,
+              child: Column(
+                children: [
+                  SizedBox(height: 8.h),
+                  const StoryAppBar(),
+                  _build13(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build1() {
+    return Column(
+      children: [
+        SizedBox(height: 245.h),
+        const CustomTextBox(
+          text:
+              "Alex regains consciousness on a stone tier, surrounded by a roaring crowd. Below, in the Colosseum arena, gladiators battle wild beasts. Next to Alex sits a man in a toga, engrossed in the spectacle.",
+        ),
+      ],
+    );
+  }
+
+  Widget _build2() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizedBox(height: 78.h),
+          Padding(
+            padding: EdgeInsets.only(right: 8.w),
+            child: SizedBox(
+              width: 346.w,
+              height: 445.h,
+              child: Stack(
+                children: [
+                  const Positioned(
+                    top: 0,
+                    left: 0,
+                    child: MessageBox(
+                      name: "Man",
+                      text:
+                          "Did you see that lion tear the Gaul apart? Bet ten sesterces on that!\nHa!",
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_man2.png',
+                      width: 299.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build3() {
+    return Column(
+      children: [
+        SizedBox(height: 245.h),
+        CustomTextBox(
+          text:
+              "Alex struggles to comprehend his surroundings. He’s now dressed in a simple tunic and sandals. In his pocket is the deck, with the Colosseum card among the others.",
+        ),
+      ],
+    );
+  }
+
+  Widget _build4() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 81.h),
+          Padding(
+            padding: EdgeInsets.only(left: 12.w),
+            child: SizedBox(
+              width: 335.w,
+              height: 442.h,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  const MessageBox(
+                    name: 'Alex',
+                    text: 'Excuse me, where am I?\n\n',
+                    left: false,
+                  ),
+                  Positioned(
+                    left: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_alex2.png',
+                      width: 296.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build5() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizedBox(height: 81.h),
+          Padding(
+            padding: EdgeInsets.only(right: 8.w),
+            child: SizedBox(
+              width: 346.w,
+              height: 442.h,
+              child: Stack(
+                alignment: Alignment.topLeft,
+                children: [
+                  const MessageBox(
+                    name: 'Man',
+                    text:
+                        'In the Colosseum, of course! Where else? You’re new here, huh? First time at the games?',
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_man2.png',
+                      width: 296.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build6() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 81.h),
+          Padding(
+            padding: EdgeInsets.only(left: 12.w),
+            child: SizedBox(
+              width: 335.w,
+              height: 442.h,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  const MessageBox(
+                    name: 'Alex',
+                    text: 'You could say that...\n\n',
+                    left: false,
+                  ),
+                  Positioned(
+                    left: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_alex2.png',
+                      width: 296.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build7() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizedBox(height: 58.h),
+          Padding(
+            padding: EdgeInsets.only(right: 8.w),
+            child: SizedBox(
+              width: 346.w,
+              height: 464.h,
+              child: Stack(
+                alignment: Alignment.topLeft,
+                children: [
+                  const MessageBox(
+                    name: 'Man',
+                    text:
+                        'Then you’re in luck! Today’s special stakes - our emperor is hosting a tournament. The prize is unimaginable wealth!',
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_man2.png',
+                      width: 299.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build8() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 81.h),
+          Padding(
+            padding: EdgeInsets.only(left: 12.w),
+            child: SizedBox(
+              width: 335.w,
+              height: 442.h,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  const MessageBox(
+                    name: 'Alex',
+                    text: 'A tournament? What kind?\n\n',
+                    left: false,
+                  ),
+                  Positioned(
+                    left: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_alex2.png',
+                      width: 296.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build9() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizedBox(height: 42.h),
+          Padding(
+            padding: EdgeInsets.only(right: 8.w),
+            child: SizedBox(
+              width: 346.w,
+              height: 481.h,
+              child: Stack(
+                alignment: Alignment.topLeft,
+                children: [
+                  const MessageBox(
+                    name: 'Man',
+                    text:
+                        'Poker, naturally! The emperor’s obsessed with the game. Rumor has it he learned it from some wandering magician. Care to try your luck?',
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_man2.png',
+                      width: 299.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build10() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 81.h),
+          Padding(
+            padding: EdgeInsets.only(left: 12.w),
+            child: SizedBox(
+              width: 335.w,
+              height: 442.h,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  const MessageBox(
+                    name: 'Alex',
+                    text: 'Poker? Here?\n\n',
+                    left: false,
+                  ),
+                  Positioned(
+                    left: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_alex2.png',
+                      width: 296.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build11() {
+    return SizedBox(
+      width: 390.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizedBox(height: 42.h),
+          Padding(
+            padding: EdgeInsets.only(right: 8.w),
+            child: SizedBox(
+              width: 346.w,
+              height: 481.h,
+              child: Stack(
+                alignment: Alignment.topLeft,
+                children: [
+                  const MessageBox(
+                    name: 'Man',
+                    text:
+                        'A game’s a game, no matter where you are. But here, the stakes are higher. Lose, and you could gamble away your freedom',
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/png/avatars/avatar_man2.png',
+                      width: 299.w,
+                      height: 302.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _build12() {
+    return Column(
+      children: [
+        SizedBox(height: 245.h),
+        CustomTextBox(
+            text:
+                "A herald announces the emperor's tournament. The grand prize: gold and the freedom of any slave chosen by the winner. Alex spots a frightened young girl among the slaves awaiting their fate and decides to enter."),
+      ],
+    );
+  }
+
+  Widget _build13() {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Image.asset(
+            'assets/png/greece_girl.png',
+            height: 630.h,
+            fit: BoxFit.fitHeight,
+          ),
+        ],
+      ),
+    );
+  }
+}

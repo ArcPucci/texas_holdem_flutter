@@ -1,0 +1,1 @@
+export 'animated_cat.dart';
