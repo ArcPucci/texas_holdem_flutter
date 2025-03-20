@@ -1,34 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:provider/provider.dart';
+import 'package:texas_holdem/data/sources/sources.dart';
+import 'package:texas_holdem/presentation/providers/providers.dart';
 import 'package:texas_holdem/presentation/widgets/widgets.dart';
 
-class KnightsArmorScreen extends StatelessWidget {
+class KnightsArmorScreen extends StatefulWidget {
   const KnightsArmorScreen({super.key});
 
   @override
+  State<KnightsArmorScreen> createState() => _KnightsArmorScreenState();
+}
+
+class _KnightsArmorScreenState extends State<KnightsArmorScreen> {
+  late final List<Widget> _pages;
+  late final LocalDataProvider _provider;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      _build1(),
+      _build2(),
+      _build3(),
+      _build4(),
+      _build5(),
+      _build6(),
+      _build7(),
+      _build8(),
+      _build9(),
+      _build10(),
+      _build11(),
+      _build12(),
+      _build13(),
+      _build14(),
+      _build15(),
+      _build16(),
+      _build17(),
+      _build18(),
+      _build19(),
+      _build20(),
+      _build21(),
+      _build22(),
+      _build23(),
+      _build24(),
+    ];
+
+    Provider.of<StoryProvider>(context, listen: false).init(_pages.length, 20);
+    _provider = Provider.of(context, listen: false);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/png/knights_armor_bg.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned.fill(
-            child: SafeArea(
-              child: Column(
-                children: [
-                  SizedBox(height: 8.h),
-                  const StoryAppBar(),
-                  _build20(),
-                ],
+    return Consumer<StoryProvider>(
+      builder: (BuildContext context, value, Widget? child) {
+        return Material(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  'assets/png/knights_armor_bg.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
+              Positioned.fill(
+                child: GestureDetector(
+                  onTap: () {
+                    if (value.page == 17) _provider.addCard(4);
+                    value.next();
+                  },
+                  child: Material(
+                    color: Colors.transparent,
+                    child: SafeArea(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 8.h),
+                          const StoryAppBar(),
+                          _pages[value.page],
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -517,6 +576,112 @@ class KnightsArmorScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _build21() {
+    return Column(
+      children: [
+        SizedBox(height: 155.h),
+        SizedBox(
+          width: 335.w,
+          height: 269.h,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Positioned(
+                top: 36.h,
+                child: Container(
+                  width: 335.w,
+                  height: 187.h,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.75),
+                    border: GradientBoxBorder(
+                      width: 6.sp,
+                      gradient: AppTheme.borderGradient,
+                    ),
+                    borderRadius: BorderRadius.circular(29),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Win a poker game against Jake. The stakes: Bart’s life and Alex’s freedom. Alex’s deck contains several special cards, like one that reveals an opponent’s hand or changes a card’s suit.",
+                    style: AppTextStyles.mz17_400,
+                  ),
+                ),
+              ),
+              Container(
+                width: 192.w,
+                height: 45.h,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  border: GradientBoxBorder(
+                    width: 4.sp,
+                    gradient: AppTheme.borderGradient,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: const [
+                    BoxShadow(blurRadius: 15, color: AppTheme.green),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: Text("Quest #1", style: AppTextStyles.mz17_800),
+              ),
+              Positioned(
+                bottom: 0,
+                child: GestureDetector(
+                  onTap:
+                      Provider.of<StoryProvider>(context, listen: false).next,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/png/rects/rect2.png',
+                        width: 159.w,
+                        height: 64.h,
+                      ),
+                      Text("Play", style: AppTextStyles.mz32_800),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _build22() {
+    return Column(
+      children: [
+        SizedBox(height: 216.h),
+        const CustomTextBox(
+          text:
+              "After winning the game, Alex notices one of his cards has disappeared, replaced by a new one depicting the Roman Colosseum.",
+        ),
+      ],
+    );
+  }
+
+  Widget _build23() {
+    return Column(
+      children: [
+        SizedBox(height: 157.h),
+        ReceivedCard(mysticCard: mysticCards[4]),
+      ],
+    );
+  }
+
+  Widget _build24() {
+    return Column(
+      children: [
+        SizedBox(height: 218.h),
+        const CustomTextBox(
+          text:
+              "Another flash of light engulfs the saloon, and Alex vanishes...",
+        ),
+      ],
     );
   }
 }

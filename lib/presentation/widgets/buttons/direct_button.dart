@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:texas_holdem/data/sources/sources.dart';
 
 class DirectButton extends StatelessWidget {
@@ -10,27 +11,31 @@ class DirectButton extends StatelessWidget {
     this.onTap,
     required this.text,
     this.left = true,
+    this.hasShadow = false,
   });
 
   final VoidCallback? onTap;
   final String text;
   final bool left;
+  final bool hasShadow;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 225.w,
+        width: 237.w,
         height: 72.h,
         decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/png/frames/frame4.png'),
-            fit: BoxFit.fill,
+          border: GradientBoxBorder(
+            gradient: AppTheme.borderGradient,
+            width: 6.sp,
           ),
-          borderRadius: BorderRadius.circular(36),
-          color: Colors.black.withOpacity(0.8),
-          boxShadow: [BoxShadow(blurRadius: 21.r, color: AppTheme.green)],
+          borderRadius: BorderRadius.circular(29),
+          color: hasShadow ? Colors.black : Colors.black.withOpacity(0.8),
+          boxShadow: [
+            if (hasShadow) BoxShadow(blurRadius: 21.r, color: AppTheme.green),
+          ],
         ),
         padding: EdgeInsets.symmetric(horizontal: 26.w),
         child: Row(

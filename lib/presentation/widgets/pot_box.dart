@@ -4,11 +4,18 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:texas_holdem/data/sources/sources.dart';
 
 class PotBox extends StatelessWidget {
-  const PotBox({super.key, required this.text, this.width, this.height});
+  const PotBox({
+    super.key,
+    required this.text,
+    this.width,
+    this.height,
+    this.active = true,
+  });
 
   final String text;
   final double? width;
   final double? height;
+  final bool active;
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +30,16 @@ class PotBox extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(2),
         boxShadow: [
-          BoxShadow(
-            blurRadius: 12.r,
-            color: AppTheme.green,
-          ),
+          if (active)
+            BoxShadow(
+              blurRadius: 12.r,
+              color: AppTheme.green,
+            ),
         ],
       ),
       alignment: Alignment.center,
       child: Padding(
-        padding: EdgeInsets.only(top: 1.h),
+        padding: EdgeInsets.only(top: 2.h),
         child: Text(text, style: AppTextStyles.mz10_600),
       ),
     );

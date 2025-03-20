@@ -19,6 +19,22 @@ class AppTextStyles {
     ],
   );
 
+  static final TextStyle mz14_800 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w800,
+    fontSize: 14.r,
+    height: 13 / 14,
+    color: Colors.white,
+    letterSpacing: -0.26,
+    shadows: [
+      BoxShadow(
+        blurRadius: 12.r,
+        offset: const Offset(0, 3),
+        color: Colors.black.withOpacity(0.25),
+      ),
+    ],
+  );
+
   static final TextStyle mz24_800 = TextStyle(
     fontFamily: _mz,
     fontWeight: FontWeight.w800,
@@ -40,6 +56,63 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     fontSize: 17.r,
     height: 22 / 17,
+    color: Colors.white,
+  );
+
+  static final TextStyle mz40_800 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w800,
+    fontSize: 40.r,
+    height: 22 / 40,
+    letterSpacing: -0.43,
+    color: Colors.white,
+    shadows: [
+      BoxShadow(
+        offset: const Offset(0, 4),
+        blurRadius: 12,
+        color: Colors.black.withOpacity(0.25),
+      ),
+    ],
+  );
+
+  static final TextStyle mz29_800 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w800,
+    fontSize: 29.r,
+    height: 17 / 29,
+    letterSpacing: -0.08,
+    color: Colors.white,
+  );
+
+  static final TextStyle mz32_700 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w700,
+    fontSize: 32.r,
+    height: 1.2,
+    color: Colors.white,
+  );
+
+  static final TextStyle mz32_800 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w800,
+    fontSize: 32.r,
+    height: 22 / 32,
+    color: Colors.white,
+    shadows: [
+      BoxShadow(
+        offset: const Offset(0, 4),
+        blurRadius: 12,
+        color: Colors.black.withOpacity(0.25),
+      )
+    ],
+  );
+
+  static final TextStyle mz16_600 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w600,
+    fontSize: 16.r,
+    height: 1.2,
+    letterSpacing: 0.73,
     color: Colors.white,
   );
 
@@ -113,6 +186,24 @@ class AppTextStyles {
     color: Colors.white,
   );
 
+  static final TextStyle mz44_800 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w800,
+    fontSize: 44.r,
+    height: 1.2,
+    letterSpacing: -0.32,
+    color: Colors.white,
+  );
+
+  static final TextStyle mz9_700 = TextStyle(
+    fontFamily: _mz,
+    fontWeight: FontWeight.w700,
+    fontSize: 9.r,
+    height: 1.2,
+    letterSpacing: -0.08,
+    color: Colors.white,
+  );
+
   static final TextStyle mz10_700 = TextStyle(
     fontFamily: _mz,
     fontWeight: FontWeight.w700,
@@ -134,8 +225,8 @@ class AppTextStyles {
   static final TextStyle mz20_800 = TextStyle(
     fontFamily: _mz,
     fontWeight: FontWeight.w800,
-    fontSize: 20.r,
-    height: 21 / 20,
+    fontSize: 19.5.r,
+    height: 21 / 19.5,
     letterSpacing: -0.32,
     color: Colors.white,
     shadows: [

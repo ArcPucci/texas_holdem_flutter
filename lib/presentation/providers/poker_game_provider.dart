@@ -2,13 +2,19 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:texas_holdem/data/models/models.dart';
-import 'package:texas_holdem/data/sources/poker_checker.dart';
 import 'package:texas_holdem/data/sources/sources.dart';
+import 'package:texas_holdem/presentation/providers/providers.dart';
 
 class PokerGameProvider extends ChangeNotifier {
   PokerGameProvider({
+    required this.onGameOver,
+    required LocalDataProvider provider,
     required List<Player?> players,
-  }) : _players = players;
+  })  : _provider = provider,
+        _players = players;
+
+  final void Function(bool)? onGameOver;
+  final LocalDataProvider _provider;
 
   final List<GameCard> _deck = [];
   final List<Player?> _players;
@@ -17,10 +23,16 @@ class PokerGameProvider extends ChangeNotifier {
 
   bool get _playerCanMove => _playersTurn && !_gameOver;
 
+  int get _money => _provider.money;
+
+  bool _allIn = false;
+
   int _pot = 0;
   int _playerIndex = 0;
 
   bool _gameOver = false;
+
+  bool get gameOver => _gameOver;
 
   static const int _step = 20;
 
@@ -39,6 +51,10 @@ class PokerGameProvider extends ChangeNotifier {
 
   int get call => _previousBet;
 
+  Player? _winner;
+
+  Player? get winner => _winner;
+
   Player get player =>
       _players.firstWhere((e) => !(e?.isBot ?? true)) ??
       _players.firstWhere((e) => e != null)!;
@@ -46,9 +62,11 @@ class PokerGameProvider extends ChangeNotifier {
   void initializePoker() {
     _pot = 0;
     _raise = _step;
+    _winner = null;
     _playerIndex = 0;
     _previousBet = 0;
     _gameOver = false;
+    _allIn = false;
     _generateDeck();
 
     notifyListeners();
@@ -76,6 +94,7 @@ class PokerGameProvider extends ChangeNotifier {
   }
 
   void _move() async {
+    print('MOVE');
     while (_players[_playerIndex] == null) {
       _playerIndex++;
       print('-----------------');
@@ -92,7 +111,7 @@ class PokerGameProvider extends ChangeNotifier {
 
       print(
           "${_players[_playerIndex]!.name} can raise: ${_players[_playerIndex]!.canRaise}");
-      if (_players[_playerIndex]!.canRaise) {
+      if ((_players[_playerIndex]!.canRaise) && !_allIn) {
         rand ? await _doCallForBot() : await _doRaiseForBot();
       } else {
         await _doCallForBot();
@@ -122,6 +141,14 @@ class PokerGameProvider extends ChangeNotifier {
       await _nextPlayer();
       print(_playerIndex);
     }
+
+    if (!_players[_playerIndex]!.isBot) {
+      if (_previousBet - _players[_playerIndex]!.bet > _money) {
+        _gameOver = true;
+        notifyListeners();
+        return;
+      }
+    }
   }
 
   Future<void> _checkWinner() async {
@@ -150,20 +177,35 @@ class PokerGameProvider extends ChangeNotifier {
       }
     }
 
-    print((combs.first['player'] as Player).name);
+    final winner = combs.first['player'] as Player;
+    if (winner.isBot) {
+      _winner = winner;
+      notifyListeners();
+
+      await Future.delayed(const Duration(seconds: 1));
+    } else {
+      _provider.addMoney(_pot);
+    }
+
+    onGameOver?.call(!winner.isBot);
   }
 
   Future<bool> _checkAllCall() async {
     final allCall = _players.every((e) => (e?.didAction ?? true));
-    final allBet = _players.every((e) => e?.bet == _previousBet);
+    final allBet =
+        _players.every((e) => (e == null) || (e.bet == _previousBet));
+
+    print("ALL CALL: $allCall");
+    print("ALL BET: $allBet");
+
     final allCardsClosed = _deck.every((e) => !e.opened);
-    bool _cardOpened = false;
+    bool cardOpened = false;
 
     if (allCall && allBet) {
-      if (allCardsClosed) {
+      if (allCardsClosed && !_allIn) {
         for (int i = 0; i < 3; i++) {
           _deck[i].open();
-          _cardOpened = true;
+          cardOpened = true;
         }
 
         for (var player in _players) {
@@ -176,8 +218,8 @@ class PokerGameProvider extends ChangeNotifier {
         for (var card in _deck) {
           if (card.opened) continue;
           card.open();
-          _cardOpened = true;
-          break;
+          cardOpened = true;
+          if (!_allIn) break;
         }
       }
 
@@ -186,7 +228,7 @@ class PokerGameProvider extends ChangeNotifier {
         _pot += player.bet;
         player.bet = 0;
         player.canRaise = true;
-        player.didAction = !_cardOpened;
+        player.didAction = !cardOpened;
       }
 
       _playerIndex = 0;
@@ -197,7 +239,7 @@ class PokerGameProvider extends ChangeNotifier {
     return allCall && allBet;
   }
 
-  Future<void> _reset() async {
+  Future<void> reset() async {
     for (var player in _players) {
       if (player == null) continue;
       player.bet = 0;
@@ -233,15 +275,24 @@ class PokerGameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void doAllIn() {
+  void doAllIn() async {
     if (!_playerCanMove) return;
     if (!_players[_playerIndex]!.canRaise) return;
+    if (_previousBet > _players[_playerIndex]!.bet + _money) return;
+
+    _provider.addMoney(-_money);
+    _players[_playerIndex]?.bet += _money;
+    _allIn = true;
+    notifyListeners();
+
+    await _nextPlayer();
+    _move();
   }
 
   void increaseRaise() {
     if (!_playerCanMove) return;
     if (!_players[_playerIndex]!.canRaise) return;
-    // if(_raise >= _pot) return;
+    if (_raise + _step > _money) return;
     _raise += _step;
     notifyListeners();
   }
@@ -260,7 +311,7 @@ class PokerGameProvider extends ChangeNotifier {
     _players[_playerIndex]?.active = false;
     notifyListeners();
 
-    _reset();
+    reset();
   }
 
   void doCall() async {
@@ -268,6 +319,9 @@ class PokerGameProvider extends ChangeNotifier {
 
     final diff = _previousBet - _players[_playerIndex]!.bet;
 
+    if (diff > _money) return;
+
+    _provider.addMoney(-diff);
     _players[_playerIndex]!.bet += diff;
     _players[_playerIndex]?.canRaise = false;
     _players[_playerIndex]?.didAction = true;
@@ -282,6 +336,10 @@ class PokerGameProvider extends ChangeNotifier {
     if (!_playerCanMove) return;
     if (!_players[_playerIndex]!.canRaise) return;
 
+    final diff = _raise + _previousBet - _players[_playerIndex]!.bet;
+    if (diff > _money) return;
+
+    _provider.addMoney(-diff);
     _players[_playerIndex]?.bet = _raise + _previousBet;
     _previousBet = _players[_playerIndex]!.bet;
     _players[_playerIndex]?.canRaise = false;
