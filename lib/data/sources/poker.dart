@@ -99,11 +99,11 @@ class Poker {
 
   static final List<Player> defaultPlayers = [
     Player(name: "Player 1", isBot: false),
-    Player(name: "Player 2"),
-    Player(name: "Player 3"),
-    Player(name: "Player 4"),
-    Player(name: "Player 5"),
-    Player(name: "Player 6"),
+    Player(name: "Player 2", asset: 'assets/png/players/player8.png'),
+    Player(name: "Player 3", asset: 'assets/png/players/player5.png'),
+    Player(name: "Player 4", asset: 'assets/png/players/player7.png'),
+    Player(name: "Player 5", asset: 'assets/png/players/player6.png'),
+    Player(name: "Player 6", asset: 'assets/png/players/player4.png'),
   ];
 
   static final List<PlayerPosition> defaultPositions = [

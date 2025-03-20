@@ -5,3 +5,5 @@ export 'wild_west_screen.dart';
 export 'ancient_greece_screen.dart';
 export 'knights_armor_screen.dart';
 export 'poker_screen.dart';
+export 'default_poker_screen.dart';
+export 'final_room_screen.dart';

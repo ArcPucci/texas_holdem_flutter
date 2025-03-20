@@ -39,6 +39,7 @@ dependencies:
   go_router: ^14.8.1
   gradient_borders: ^1.0.1
   provider: ^6.1.2
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
     -  assets/png/players/
     -  assets/png/avatars/
     -  assets/png/buttons/
+    -  assets/png/mystic_cards/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

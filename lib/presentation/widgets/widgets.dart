@@ -12,3 +12,5 @@ export 'message_box.dart';
 export 'actions_table.dart';
 export 'pot_box.dart';
 export 'player_card.dart';
+export 'game_card_frame.dart';
+export 'received_card.dart';

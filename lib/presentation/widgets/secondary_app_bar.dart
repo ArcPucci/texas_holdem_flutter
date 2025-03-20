@@ -3,9 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:texas_holdem/presentation/widgets/widgets.dart';
 
 class SecondaryAppBar extends StatelessWidget {
-  const SecondaryAppBar({super.key, this.canTapPlus = true});
+  const SecondaryAppBar({
+    super.key,
+    this.canTapPlus = true,
+    this.canTapPresent = true,
+  });
 
   final bool canTapPlus;
+  final bool canTapPresent;
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +21,35 @@ class SecondaryAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            'assets/png/buttons/present.png',
-            width: 45.w,
-            height: 45.h,
+          GestureDetector(
+            onTap: () {
+              if (!canTapPresent) return;
+              showDailyRewardDialog(context);
+            },
+            child: Image.asset(
+              'assets/png/buttons/present.png',
+              width: 45.w,
+              height: 45.h,
+            ),
           ),
-          MoneyWidget(canTapPlus: canTapPlus),
+          MoneyWidget(
+            canTapPlus: canTapPlus,
+            appBar: const SecondaryAppBar(
+              canTapPresent: false,
+              canTapPlus: false,
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  void showDailyRewardDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const DailyRewardDialog();
+      },
     );
   }
 }

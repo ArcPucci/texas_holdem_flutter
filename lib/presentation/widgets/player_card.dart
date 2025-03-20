@@ -5,9 +5,10 @@ import 'package:texas_holdem/data/sources/sources.dart';
 import 'package:texas_holdem/presentation/widgets/widgets.dart';
 
 class PlayerCard extends StatelessWidget {
-  const PlayerCard({super.key, required this.player});
+  const PlayerCard({super.key, required this.player, this.active = false});
 
   final Player player;
+  final bool active;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,11 @@ class PlayerCard extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            child: PotBox(text: "${player.bet}", width: 51.w),
+            child: PotBox(
+              text: "${player.bet}",
+              active: active,
+              width: 51.w,
+            ),
           ),
         ],
       ),
