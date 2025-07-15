@@ -39,7 +39,7 @@ class PotBox extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: Padding(
-        padding: EdgeInsets.only(top: 1.h),
+        padding: EdgeInsets.only(top: 2.h),
         child: Text(text, style: AppTextStyles.mz10_600),
       ),
     );

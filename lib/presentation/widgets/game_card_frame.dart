@@ -31,6 +31,7 @@ class GameCardFrame extends StatelessWidget {
         card.image,
         width: 42.w,
         height: 62.h,
+        fit: BoxFit.fill,
       );
     }
     return const SizedBox();

@@ -19,12 +19,12 @@ class StoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 357.w,
-        height: 172.h,
+        width: 357.sp,
+        height: 172.sp,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(asset),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         alignment: Alignment.bottomLeft,

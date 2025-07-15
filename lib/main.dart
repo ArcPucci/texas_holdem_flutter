@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,13 @@ import 'presentation/providers/providers.dart';
 void main() {
   runZonedGuarded(
     () async {
+
       WidgetsFlutterBinding.ensureInitialized();
+
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
 
       final preferences = await SharedPreferences.getInstance();
       final repository = LocalDataRepository(preferences);

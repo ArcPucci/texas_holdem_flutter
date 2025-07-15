@@ -10,12 +10,14 @@ class CustomAppBar extends StatelessWidget {
     this.canShowBackpack = true,
     this.canAdd = true,
     this.canGoBack = true,
+    this.onTapHome,
   });
 
   final bool canShowBackpack;
   final Widget? appBar;
   final bool canAdd;
   final bool canGoBack;
+  final VoidCallback? onTapHome;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,8 @@ class CustomAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: canGoBack ? (context.canPop() ? context.pop : null) : null,
+            onTap: onTapHome ??
+                (canGoBack ? (context.canPop() ? context.pop : null) : null),
             child: Image.asset(
               'assets/png/buttons/home.png',
               width: 45.w,

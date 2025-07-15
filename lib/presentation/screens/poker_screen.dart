@@ -60,6 +60,7 @@ class PokerScreen extends StatelessWidget {
                               story.table,
                               width: 318.w,
                               height: 515.h,
+                              fit: BoxFit.fill,
                             ),
                           ),
                           Positioned(
@@ -83,6 +84,27 @@ class PokerScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: 20.h),
+                                if (value.winner != null)
+                                  Row(
+                                    children: List.generate(
+                                      value.winner!.hand.length,
+                                      (index) {
+                                        final card = value.winner!.hand[index];
+                                        return Padding(
+                                          padding: EdgeInsets.only(
+                                            left: index != 0 ? 6.w : 0,
+                                          ),
+                                          child: Image.asset(
+                                            card.image,
+                                            width: 42.w,
+                                            height: 62.h,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
                               ],
                             ),
                           ),
@@ -139,17 +161,22 @@ class PokerScreen extends StatelessWidget {
                   bottom: 0,
                   child: Center(
                     child: SafeArea(
-                      child: ActionsTable(
-                        doAllIn: value.doAllIn,
-                        doCall: value.doCall,
-                        doFold: value.foldCards,
-                        doRaise: value.doRaise,
-                        multiplyRaise: value.multiplyBet,
-                        increaseRaise: value.increaseRaise,
-                        decreaseRaise: value.decreaseRaise,
-                        call: value.call,
-                        raise: value.raise,
-                      ),
+                      child: value.gameOver
+                          ? GameButton(
+                              text: 'New Game',
+                              onTap: value.reset,
+                            )
+                          : ActionsTable(
+                              doAllIn: value.doAllIn,
+                              doCall: value.doCall,
+                              doFold: value.foldCards,
+                              doRaise: value.doRaise,
+                              multiplyRaise: value.multiplyBet,
+                              increaseRaise: value.increaseRaise,
+                              decreaseRaise: value.decreaseRaise,
+                              call: value.call,
+                              raise: value.raise,
+                            ),
                     ),
                   ),
                 ),

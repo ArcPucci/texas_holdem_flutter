@@ -42,7 +42,7 @@ class _MainRoomScreenState extends State<MainRoomScreen> {
                 ),
               ),
               Positioned(
-                top: 319.h,
+                top: 330.h,
                 right: 0,
                 child: const SafeArea(child: AnimatedCat()),
               ),
@@ -64,13 +64,14 @@ class _MainRoomScreenState extends State<MainRoomScreen> {
                 top: 8.h,
                 left: 0,
                 right: 0,
-                child: const Center(
+                child: Center(
                   child: SafeArea(
                     child: CustomAppBar(
-                      appBar: CustomAppBar(
+                      appBar: const CustomAppBar(
                         canAdd: false,
                         canShowBackpack: false,
                       ),
+                      onTapHome: () => onTap(firstText, value.mainRoomState),
                     ),
                   ),
                 ),

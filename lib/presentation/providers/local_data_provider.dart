@@ -82,6 +82,7 @@ class LocalDataProvider extends ChangeNotifier {
   }
 
   void saveMainRoomState() async {
+    _mainRoomState = true;
     await _repository.saveMainRoomState();
     notifyListeners();
   }

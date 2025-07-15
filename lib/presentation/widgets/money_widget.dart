@@ -30,6 +30,7 @@ class MoneyWidget extends StatelessWidget {
                       'assets/png/rects/rect1.png',
                       width: 101.w,
                       height: 41.h,
+                      fit: BoxFit.fill,
                     ),
                     Text("${value.money}", style: AppTextStyles.mz17_800),
                   ],

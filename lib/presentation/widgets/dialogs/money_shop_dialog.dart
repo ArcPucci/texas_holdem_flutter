@@ -1,16 +1,85 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
+import 'package:texas_holdem/data/models/models.dart';
 import 'package:texas_holdem/data/sources/sources.dart';
 import 'package:texas_holdem/presentation/providers/providers.dart';
 import 'package:texas_holdem/presentation/widgets/widgets.dart';
 
-class MoneyShopDialog extends StatelessWidget {
+class MoneyShopDialog extends StatefulWidget {
   const MoneyShopDialog({super.key, this.appBar});
 
   final Widget? appBar;
+
+  @override
+  State<MoneyShopDialog> createState() => _MoneyShopDialogState();
+}
+
+class _MoneyShopDialogState extends State<MoneyShopDialog> {
+  int _quantity = 0;
+  late StreamSubscription<List<PurchaseDetails>> _subscription;
+  final iapConnection = InAppPurchase.instance;
+  late List<PurchClassTotalCas> products;
+
+  Future<void> _onPurchaseUpdate(
+      List<PurchaseDetails> purchaseDetailsList) async {
+    for (var purchaseDetails in purchaseDetailsList) {
+      await _handlePurchase(purchaseDetails);
+    }
+  }
+
+  Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
+    if (purchaseDetails.pendingCompletePurchase) {
+      await iapConnection.completePurchase(purchaseDetails);
+      buy();
+      setState(() {});
+    }
+  }
+
+  void _updateStreamOnDone() {
+    _subscription.cancel();
+  }
+
+  Future<void> loadPurchases() async {
+    const Set<String> coins = {
+      'com.example.texasHoldem.ios_first_purchase',
+      'com.example.texasHoldem.ios_second_purchase',
+      'com.example.texasHoldem.ios_third_purchase',
+    };
+    final response = await iapConnection.queryProductDetails(coins);
+    for (var element in response.notFoundIDs) {
+      debugPrint('Purchase $element not found');
+    }
+    products =
+        response.productDetails.map((e) => PurchClassTotalCas(e)).toList();
+  }
+
+  Future<void> buyLuckyAppsPurch(PurchClassTotalCas product) async {
+    try {
+      final iapConnectionFortune = InAppPurchase.instance;
+      final newIAPpurchaseParam =
+          PurchaseParam(productDetails: product.productDetails);
+      await iapConnectionFortune.buyConsumable(
+          purchaseParam: newIAPpurchaseParam);
+    } catch (e) {
+      debugPrint("ERROR: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final purchaseUpdated = iapConnection.purchaseStream;
+    _subscription = purchaseUpdated.listen(
+      _onPurchaseUpdate,
+      onDone: _updateStreamOnDone,
+    );
+    loadPurchases();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +90,7 @@ class MoneyShopDialog extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 9.h),
-            appBar ?? const SecondaryAppBar(canTapPlus: false),
+            widget.appBar ?? const SecondaryAppBar(canTapPlus: false),
             SizedBox(height: 123.h),
             Align(
               alignment: Alignment.centerRight,
@@ -44,6 +113,7 @@ class MoneyShopDialog extends StatelessWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/png/frames/frame5.png'),
+                  fit: BoxFit.fill,
                 ),
               ),
               padding: EdgeInsets.only(
@@ -113,11 +183,8 @@ class MoneyShopDialog extends StatelessWidget {
                             SizedBox(height: 12.h),
                             GestureDetector(
                               onTap: () {
-                                Provider.of<LocalDataProvider>(context,
-                                        listen: false)
-                                    .addMoney(
-                                  coin.quantity,
-                                );
+                                _quantity = coin.quantity;
+                                buyLuckyAppsPurch(products[index]);
                               },
                               child: Stack(
                                 alignment: Alignment.center,
@@ -151,6 +218,12 @@ class MoneyShopDialog extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void buy() {
+    Provider.of<LocalDataProvider>(context, listen: false).addMoney(
+      _quantity,
     );
   }
 }
