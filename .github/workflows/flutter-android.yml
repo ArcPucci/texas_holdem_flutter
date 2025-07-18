@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android (.apk + .aab)
 
 on:
   push:
@@ -14,19 +14,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Flutter
+      - name: Set up Flutter (3.33.0 with Dart 3.5.1)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.1'
+          flutter-version: '3.33.0'
 
-      - name: Install Flutter dependencies
+      - name: Install dependencies
         run: flutter pub get
 
       - name: Build APK (release)
         run: flutter build apk --release
 
-      - name: Upload release APK
+      - name: Build AAB (release)
+        run: flutter build appbundle --release
+
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release.aab
+          path: build/app/outputs/bundle/release/app-release.aab
