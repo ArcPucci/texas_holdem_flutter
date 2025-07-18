@@ -8,13 +8,11 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:texas_holdem/presentation/screens/screens.dart';
 
-import 'backend_integration.dart';
 import 'presentation/providers/providers.dart';
 
 void main() {
   runZonedGuarded(
     () async {
-      await initBackend();
 
       WidgetsFlutterBinding.ensureInitialized();
 
