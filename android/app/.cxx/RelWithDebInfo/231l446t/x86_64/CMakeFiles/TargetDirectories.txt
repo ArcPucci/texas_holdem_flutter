@@ -1,0 +1,2 @@
+/Users/bayastan/StudioProjects/android/texas_holdem/android/app/.cxx/RelWithDebInfo/231l446t/x86_64/CMakeFiles/edit_cache.dir
+/Users/bayastan/StudioProjects/android/texas_holdem/android/app/.cxx/RelWithDebInfo/231l446t/x86_64/CMakeFiles/rebuild_cache.dir

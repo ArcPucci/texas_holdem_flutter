@@ -1,0 +1,2 @@
+/Users/bayastan/StudioProjects/android/texas_holdem/android/app/.cxx/RelWithDebInfo/231l446t/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/bayastan/StudioProjects/android/texas_holdem/android/app/.cxx/RelWithDebInfo/231l446t/armeabi-v7a/CMakeFiles/rebuild_cache.dir
